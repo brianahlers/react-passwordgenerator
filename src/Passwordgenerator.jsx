@@ -6,6 +6,7 @@ function Passwordgenerator() {
   const [length, setLength] = useState(0);
   const [includeSymbols, setIncludeSymbols] = useState(false);
   const [includeNumbers, setIncludeNumbers] = useState(false);
+  const [includeRandomCase, setIncludeRandomCase] = useState(false);
 
 
   function generatePassword() {
@@ -17,10 +18,13 @@ function Passwordgenerator() {
     let characters = availableCharacters[0];
     
     if (includeSymbols) {
-      characters += '!@#$%^&*()';
+      characters += '!@#$%^&*';
     }
     if (includeNumbers) {
       characters += '1234567890';
+    }
+    if (includeRandomCase) {
+      characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     }
     let generatedPassword = '';
 
@@ -61,6 +65,15 @@ function Passwordgenerator() {
           type="checkbox"
           checked={includeNumbers}
           onChange={event => setIncludeNumbers(event.target.checked)}
+        />
+      </label>
+      <br />
+      <label>
+        Include Random Case:
+        <input
+          type="checkbox"
+          checked={includeRandomCase}
+          onChange={event => setIncludeRandomCase(event.target.checked)}
         />
       </label>
       <br />
