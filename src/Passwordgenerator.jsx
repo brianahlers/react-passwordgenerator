@@ -9,47 +9,52 @@ function Passwordgenerator() {
 
 
   function generatePassword() {
-    let characters = availableCharacters.filter(char => !includeSymbols || /[a-zA-Z0-9]/.test(char))
-    let generatedPassword = '';
-    for (let i = 0 < length; i++;) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      generatedPassword += characters[randomIndex]
+    const passwordLength = parseInt(length);
+    if (isNaN(passwordLength) || passwordLength < 0) {
+      return;
     }
-    setPassword(generatedPassword)
+
+    let characters = availableCharacters[0];
+    let generatedPassword = '';
+    for (let i = 0; i <passwordLength; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      generatedPassword += characters[randomIndex];
+    }
+    setPassword(generatedPassword);
   }
   return (
     <>
       <h1>Password Generator</h1>
-      <p>{password}</p>
       <label>
         Choose Password Length:
-        </label>
-        <br />
+      </label>
+      <br />
+      <input
+        type="number"
+        value={length}
+        onChange={event => setLength(parseInt(event.target.value))}
+      />
+      <br />
+      <label>
+        Include Symbols:
         <input
-          type="number"
-          value={length}
-          onChange={event => setLength(parseInt(event.target.value))}
+          type="checkbox"
+          checked={includeSymbols}
+          onChange={event => setIncludeSymbols(event.target.checked)}
         />
-        <label>
-          Include Symbols:
-          <br />
-          <input
-            type="checkbox"
-            checked={includeSymbols}
-            onChange={event => setIncludeSymbols(event.target.checked)}
-          />
-        </label>
-        <label>
-          Include Numbers:
-          <br />
-          <input
-            type="checkbox"
-            checked={includeNumbers}
-            onChange={event => setIncludeNumbers(event.target.checked)}
-          />
-        </label>
+      </label>
+      <br />
+      <label>
+        Include Numbers:
+        <input
+          type="checkbox"
+          checked={includeNumbers}
+          onChange={event => setIncludeNumbers(event.target.checked)}
+        />
+      </label>
       <br />
       <button onClick={generatePassword}>Generate Password</button>
+      <div>{password}</div>
     </>
   );
 }
