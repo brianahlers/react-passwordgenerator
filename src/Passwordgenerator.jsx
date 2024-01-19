@@ -15,7 +15,15 @@ function Passwordgenerator() {
     }
 
     let characters = availableCharacters[0];
+    
+    if (includeSymbols) {
+      characters += '!@#$%^&*()';
+    }
+    if (includeNumbers) {
+      characters += '1234567890';
+    }
     let generatedPassword = '';
+
     for (let i = 0; i <passwordLength; i++) {
       const randomIndex = Math.floor(Math.random() * characters.length);
       generatedPassword += characters[randomIndex];
@@ -30,10 +38,13 @@ function Passwordgenerator() {
       </label>
       <br />
       <input
-        type="number"
+        type="range"
+        min="8"
+        max="32"
         value={length}
         onChange={event => setLength(parseInt(event.target.value))}
       />
+      <span>{length}</span>
       <br />
       <label>
         Include Symbols:
